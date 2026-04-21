@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    --safe-top: env(safe-area-inset-top);
+    --safe-bottom: env(safe-area-inset-bottom);
+    --radius-ios: 20px;
+    --shadow-soft: 0 4px 24px -1px rgba(0, 0, 0, 0.06), 0 2px 8px -1px rgba(0, 0, 0, 0.04);
+  }
+
+  body {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+    @apply antialiased overflow-hidden;
+  }
+}
+
+@layer utilities {
+  .safe-top {
+    padding-top: var(--safe-top);
+  }
+  .safe-bottom {
+    padding-bottom: var(--safe-bottom);
+  }
+
+  /* Dynamic Texture Layer */
+  .texture-layer {
+    @apply fixed inset-0 pointer-events-none z-0 opacity-[0.03] transition-transform duration-300 ease-out;
+    background-repeat: repeat;
+  }
+
+  /* Theme Textures & Colors */
+  .theme-paper { --bg: #fcfaf2; --accent: #4a4a4a; }
+  .theme-paper .texture-layer {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.08;
+  }
+
+  .theme-glass { --bg: #f2f2f7; --accent: #007aff; }
+  .theme-glass .texture-layer {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    opacity: 0.1;
+  }
+
+  .theme-wood { --bg: #f3e5d8; --accent: #5d4037; }
+  .theme-wood .texture-layer {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cfilter id='wood' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.01 0.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeDisplacementMap in='SourceAlpha' scale='10'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23wood)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.15;
+  }
+
+  .theme-metal { --bg: #d1d5db; --accent: #374151; }
+  .theme-metal .texture-layer {
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 50%, rgba(255,255,255,0.1) 100%);
+    background-size: 200% 100%;
+    opacity: 0.2;
+  }
+
+  .theme-fabric { --bg: #f0f4f8; --accent: #2c3e50; }
+  .theme-fabric .texture-layer {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M0 0 L10 10 M10 0 L0 10' stroke='%23000' stroke-width='0.5' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.05;
+  }
+
+  /* OS Themes */
+  .theme-win98 { --bg: #008080; --accent: #c0c0c0; }
+  .theme-winxp { --bg: #245edb; --accent: #3d95d0; }
+  .theme-redhat { --bg: #cc0000; --accent: #000000; }
+  .theme-playstation { --bg: #003087; --accent: #ffffff; }
+  .theme-xbox { --bg: #107c10; --accent: #000000; }
+
+  /* Cartoon Themes */
+  .theme-scoobydoo { --bg: #6b4423; --accent: #00ff00; }
+  .theme-jetsons { --bg: #00d2ff; --accent: #ff9900; }
+  .theme-ben10 { --bg: #000000; --accent: #00ff00; }
+  .theme-flintstones { --bg: #ff9933; --accent: #663300; }
+
+  /* Movie Themes */
+  .theme-matrix { --bg: #000000; --accent: #00ff00; }
+  .theme-amelie { --bg: #8b0000; --accent: #228b22; }
+  .theme-bladerunner { --bg: #000b1e; --accent: #ff00ff; }
+  .theme-budapest { --bg: #f8c8dc; --accent: #fdfd96; }
+
+  /* Dark Mode Overrides */
+  .theme-dark { --bg: #1c1c1e; --accent: #0a84ff; }
+  .theme-light { --bg: #f2f2f7; --accent: #007aff; }
+
+  /* Apply background color to body based on theme */
+  [class*="theme-"] {
+    background-color: var(--bg);
+  }
+
+  .dark .texture-layer {
+    opacity: 0.02; /* Reduce texture intensity in dark mode */
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl border border-white/20 shadow-lg;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .dark .glass-card {
+    background: rgba(28, 28, 30, 0.7);
+    @apply border-white/10;
+  }
+}
+
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Prevent text selection on UI elements for a more native feel */
+nav, button, header {
+  user-select: none;
+  -webkit-user-select: none;
+}

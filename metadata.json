@@ -1,0 +1,5 @@
+{
+  "name": "CineLog PWA",
+  "description": "A minimal, gamified movie logger optimized for iPhone mini. Track your watch streaks and earn badges offline.",
+  "requestFramePermissions": []
+}
